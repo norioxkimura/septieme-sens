@@ -1,0 +1,10 @@
+---
+title: Septième Sens
+description: 第七感
+theme: jekyll-theme-cayman
+url: https://norioxkimura.github.io
+baseurl: /septieme-sens
+permalink: /blog/:year/:month:day/:title.html
+paginate_path: /blog/page:num/
+paginate: 10
+timezone: Asia/Tokyo
