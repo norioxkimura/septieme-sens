@@ -1,0 +1,10 @@
+---
+title: Blog
+layout: default
+---
+
+<h1>All Posts</h1>
+{% for page in site.posts %}
+<div><a href="/septieme-sens{{ page.url }}">{{ page.title }}</a> ({{ page.date | date: "%F %R" }})</div>
+{% endfor %}
+
