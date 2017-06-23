@@ -1,0 +1,20 @@
+
+dev:
+   box:
+      id: jekyll/jekyll:pages
+      ports:
+       - 4000
+       - 35729
+   steps:
+    - internal/watch:
+         reload: false
+         code: |
+            /usr/bin/jekyll serve --host 0.0.0.0
+
+clean:
+   box: jekyll/jekyll:pages
+   steps:
+    - script:
+         code: |
+            rm -rf .sass-cache _site
+
