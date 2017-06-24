@@ -38,7 +38,69 @@ SpecialTransform, Transform, Collection は自分のコードが依存してい�
 Java の総称型は型パラメーターに対して不変である。つまり以下はコンパイル不可 :
 
 ```java
-class ProductImpl extends AbstractProduct {}
+static double sum(List<Number> numbers) { /* ... */ }
+
+double result = sum(Arrays.asList(1.0, 2.0, 3.0));
+    // error: incompatible types: List<Double> cannot be converted to List<Number>
+```
+
+このケースは `Double extends Number` のときに `List<Double> extends List<Number>` になって欲しいケー
+スである。Java では `List<Nubmer>` の代わりに `List<? extends Number>` と書くことで、任意の `Number`
+のサブクラス X について `List<X> extends List<? extends Number>` であるようにできる。実際のコードは
+以下のようになる :
+
+```java
+static double sum(List<? extends Number> numbers) {
+    double result = 0.0;
+    for (Number n: numbers)
+        result += n.doubleValue();
+    return result;
+}
+```
+
+ただし、`numbers` に対して `List<E>` クラスのメソッドのうち `E` を引数とするメソッドを呼ぶことはでき
+ず、コンパイルエラーとなる。
+
+ただし、`List<? extends Number>` 型として宣言された `numbers` に対して
+
+このケースはサブクラスの List をスーパークラスの List に変換できないケースで
+ある。以下の `sum()` の実装を見ても分かる通り、型安全を保証できそうに見えるので
+、この変換が実現できると嬉しい。
+
+```java
+static double sum(List<Number> numbers) {
+    double result = 0.0;
+    for (Number n: numbers)
+        result += n.doubleValue();
+    return result;
+}
+```
+
+実際に
+
+```java
+class Test {
+    static double sum(List<Number> numbers) {
+        double result = 0.0;
+        for (Number n: numbers)
+            result += n;
+        return n;
+    }
+    static void main(String[] args) {
+        List<Double> doubles = Arrays.asList(1.0, 2.0, 3.0);
+        double result = sum(doubles);
+          // error: incompatible types: List<Double> cannot be converted to List<Number>
+    }
+}
+```
+
+```java
+class Test {
+
+    static class Suuper {}
+    static class Sub extends Super {}
+
+    static void f(List<Super> 
 
 List<AbstractProduct> superProducts = new ArrayList<AbstractProduct>();
 List<ProductImpl>     subProducts   = new ArrayList<ProductImpl>();
