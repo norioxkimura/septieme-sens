@@ -10,3 +10,8 @@ paginate: 10
 timezone: Asia/Tokyo
 gems:
  - jekyll-paginate
+defaults:
+ - scope:
+      path: ''
+   values:
+      layout: default
