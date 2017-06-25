@@ -88,13 +88,8 @@ Integer のインスタンスが足されることが許されてしまい、型
 class SpecialTransform<T> extends Transform<Collection<? extends T>> {}
 ```
 
-... ... よくわからなくなってきた。
-
-```java
-class SpecialTransform<T> extends Transform<Collection<T>> {}
-```
-
-と比較してどう違うか考えてみよう。
+なぜスーパークラス指定のところに `? extends T` があるのか？→なぜもなにも、もともとの Transform クラ
+スの定義がそうなっているだけ。 ← 違う！そういうわけではない。よく考えよ。
 
 <!--
 
